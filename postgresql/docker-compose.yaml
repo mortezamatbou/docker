@@ -1,0 +1,26 @@
+
+services:
+
+  db:
+    image: postgres:latest
+    
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+
+    volumes:
+     - ./volume:/var/lib/postgresql/data/pgdata
+     - ./db-init-files:/docker-entrypoint-initdb.d
+    
+    environment:
+      POSTGRES_PASSWORD: test
+      # If it is not specified, then the default user of postgres will be used
+      POSTGRES_USER: test
+      POSTGRES_DB: northwind
+    ports:
+      - "5432:5432"
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
